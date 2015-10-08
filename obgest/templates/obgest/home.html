@@ -1,0 +1,18 @@
+{% extends "obgest/base.html" %}
+
+{% block title %} {{ title }} {% endblock %}
+
+{% block sous_menu %} {{sous_title}} {% endblock %}
+
+<!-- main content -->
+{% block main_body %}
+<!-- If annonce faite avec succes -->
+{% if annonce %}
+	<div class="alert alert-success" id="">
+            <strong>Success ! </strong> Votre annonce a ete enregistre. merci d'avoir utilise <b><u>mjwenn</u></b>
+    </div>
+{% endif %}
+
+
+
+{% endblock %}

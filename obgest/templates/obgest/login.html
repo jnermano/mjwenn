@@ -1,0 +1,70 @@
+<!-- extends base page (master page) -->
+{% extends "obgest/base.html" %}
+
+<!-- Page title -->
+{% block title %} {{ title }} {% endblock %}
+
+<!-- sous-menu -->
+{% block sous_menu %} {{sous_title}} {% endblock %}
+
+<!-- main content -->
+{% block main_body %}
+
+{% if error_message %} <p style="color:red"><strong>{{ error_message }}</strong></p>{% endif %}
+<div class="row">
+<div class="col-md-offset-5 col-md-7 col-xs-12">
+
+<form action="{% url 'obgest:login' %}" method="post">
+{% csrf_token %}
+<table class="table table-bordered">
+<tr><th style="background:black;color:white;font-size:20px">Authentification</th></tr>
+
+
+{% if form.password.errors or form.username.errors %}
+<tr>
+<td>
+	<span style="width:100%; color:red">
+        Verifiez username et/ou mot de passe
+    </span>
+</td>
+</tr>
+{% endif %}
+
+<tr>
+<td>
+	<div class="input-group" style="width:100%">
+    	<span class="input-group-addon glyphicon glyphicon-user" style="font-size:20px;margin-left:40%;margin-top:7px"></span>
+    	{{ form.username }}
+    </div> 
+</td>
+</tr>
+<tr>
+<td>
+	<div class="input-group" style="width:100%">
+    	<span class="input-group-addon glyphicon glyphicon-lock" style="font-size:20px;margin-left:40%;margin-top:7px"></span>
+    	{{ form.password }}
+    </div> 
+</td>
+</tr>
+
+<tr>
+	<td> 
+		<input class="btn btn-primary" type="submit" value="Connecter" />
+		<span class="pull-right"> <a style="background:transparent;color:black" class="btn btn-primary" href="{% url 'obgest:register' %}" >Creer un conpte </span>
+	</td>
+</tr>
+
+
+</table>
+</form>
+
+</div>
+</div>
+
+
+{% endblock %}
+
+<!-- side content -->
+{% block page_side %}
+
+{% endblock %}

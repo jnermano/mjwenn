@@ -1,0 +1,193 @@
+<!-- extends base page (master page) -->
+{% extends "obgest/base.html" %}
+
+<!-- Page title -->
+{% block title %} 
+{{ title }} 
+
+{% endblock %}
+
+<!-- sous-menu -->
+{% block sous_menu %} {{sous_title}} {% endblock %}
+
+<!-- main content -->
+{% block main_body %}
+
+<div class="container">
+<div class="row">
+<div class="col-md-8 col-xs-12">
+<form onSubmit="return isFormOk()" class="form-horizonal" action="{% url 'obgest:annonce' %}" method="post" enctype="multipart/form-data">
+
+{% csrf_token %}
+{{ form.non_field_errors }}
+<table class="tab1" >
+<tbody>
+<tr>
+	<th colspan=3>
+		<legend style="width:100%">Informations sur la carte</legend>
+	</th>
+</tr>
+
+<tr style="height:10px"></tr>
+
+<tr>
+	<th> <label class="control-label" for="{{ form.Type_de_carte.id_for_label }}">Type de carte *</label> </th>
+	<td> {{ form.Type_de_carte }} </td>
+	<td > <span style="color:red"> {{ form.Type_de_carte.errors }} {% if type == False  %} <ul class="errorlist"><li>Ce champ est obligatoire. Type? </li></ul> {% endif %} </span></td>
+</tr>
+
+<tr style="height:2px"></tr>
+
+<tr style="margin-top:50px">
+	<th style="width:200px"> <label class="control-label" for="{{ form.Nom_proprietaire.id_for_label }}">Nom du propri{{e}}taire *</label> </th>
+	<td style="width:250px"> {{ form.Nom_proprietaire }} </td>
+	<td style="width:250px"> <span style="color:red"> {{ form.Nom_proprietaire.errors }} </span> </td>
+</tr>
+
+<tr style="height:2px"></tr>
+
+<tr>
+	<th> <label class="control-label" for="{{ form.Prenom_proprietaire.id_for_label }}">Pr{{e}}nom du propri{{e}}taire *</label> </th>
+	<td> {{ form.Prenom_proprietaire }} </td>
+	<td > <span style="color:red"> {{ form.Prenom_proprietaire.errors }} </span> </td>
+</tr>
+
+<tr style="height:2px"></tr>
+
+<tr>
+	<th> <label class="control-label" for="{{ form.Image.id_for_label }}">Image de la carte</label> </th>
+	<td> {{ form.Image }} </td>
+	<td > <span style="color:red"> {{ form.Image.errors }} {% if file_error != '' %} <ul class="errorlist"><li>{{ file_error }} </li></ul> {% endif %} </span> </td>
+</tr>
+
+<tr style="height:20px"></tr>
+
+<tr>
+	<th colspan=3>
+		<legend style="width:100%;">Comment R{{e}}cup{{e}}rer la carte</legend>
+		<span style="font-size:10px"> SVP, fournissez les informations n{{e}}cessaire pour aider le propri{{e}}taire a r{{e}}cup{{e}}rer la carte.
+		un moyen pour vous contacter, une adresse, ou autres </span>
+	</th>
+</tr>
+
+<tr style="height:15px"></tr>
+
+<tr>
+	<th colspan=3>
+		<div class="alert alert-danger" id="error_infos">
+            <strong>ERREUR ! </strong> Veuillez fournir au moins un moyen pour prendre contact et pour r{{e}}cuper{{e}}r la carte
+        </div>
+	</th>
+</tr>
+{% if contact == False %}
+<tr>
+	<th colspan=3>
+		<div class="alert alert-danger" id="error_infos">
+            <strong>ERREUR ! </strong> Veuillez fournir au moins un moyen pour prendre contact et pour r{{e}}cuper{{e}}r la carte
+        </div>
+	</th>
+</tr>
+{% endif %}
+<tr style="height:2px"></tr>
+
+{% if address %}
+<tr>
+<th colspan=3>
+<table class="table table-bordered table-condensed">
+<thead>
+<tr class="success">
+<th></th> <th>Nom</th> <th>Adresse</th> <th>Tel</th>
+</tr>
+</thead>
+<tbody>
+	{% for a in address %}
+		<tr>
+			<td><input type="radio" name="adresse" value="{{a.id}}"></td>
+			<td>{{ a.contact_name }}</td>
+			<td>{{a.contact_place}}</td>
+			<td>{{a.contact_tel}}</td>
+		</tr>
+	{% endfor %}
+</tbody>
+</table>
+</th>
+</tr>
+{% endif %}
+
+
+<tr>
+	<th> <label class="control-label" for="{{ form.contact_name.id_for_label }}">Votre nom / Entreprise</label> </th>
+	<td> {{ form.contact_name }} </td>
+	<td > <span style="color:red"> {{ form.contact_name.errors }} </span> </td>
+</tr>
+<tr style="height:2px"></tr>
+
+<tr>
+	<th> <label class="control-label" for="{{ form.contact_tel.id_for_label }}">Tel</label> </th>
+	<td> {{ form.contact_tel }} </td>
+	<td > <span style="color:red"> {{ form.contact_tel.errors }} </span> </td>
+</tr>
+<tr style="height:2px"></tr>
+
+<tr>
+	<th> <label class="control-label" for="{{ form.contact_email.id_for_label }}">E-mail</label> </th>
+	<td> {{ form.contact_email }} </td>
+	<td > <span style="color:red"> {{ form.contact_email.errors }} </span> </td>
+</tr>
+<tr style="height:2px"></tr>
+
+<tr>
+	<th> <label class="control-label" for="{{ form.contact_place.id_for_label }}">Adresse</label> </th>
+	<td> {{ form.contact_place }} </td>
+	<td > <span style="color:red"> {{ form.contact_place.errors }} </span> </td>
+</tr>
+<tr style="height:2px"></tr>
+
+<tr>
+	<th style="vertical-align:top"> <label class="control-label" for="{{ form.desc.id_for_label }}">Autres details</label> </th>
+	<td> {{ form.desc }} </td>
+	<td style="vertical-align:top"> <span style="color:red"> {{ form.desc.errors }} </span> </td>
+</tr>
+<tr style="height:2px"></tr>
+
+<tr>
+	<td> </td>
+	<td> <input type="submit" class="btn btn-primary" value="Soumettre"> </td>
+	<td> </td>
+<tbody>
+</table>
+
+
+</form>
+</div>
+</div>
+</div>
+{% endblock %}
+
+<!-- side content -->
+{% block page_side %}
+
+{% endblock %}
+
+<!-- script block -->
+{% block script %}
+<script>
+	$(document).ready(function(){
+		$('#error_infos').hide();
+	});
+	
+	function isFormOk(){
+		var radioValue = $("input[name='adresse']:checked").val();
+		if($('#id_contact_name').val().length>3 ||
+			$('#id_contact_tel').val().length>=8 ||
+			$('#id_contact_email').val().length>8 ||
+			$('#id_contact_place').val().length>8 ||
+			radioValue ){
+			return true;
+		}else{
+			$('#error_infos').show();
+			return false;		
+		}
+	}
+</script>
+{% endblock %}

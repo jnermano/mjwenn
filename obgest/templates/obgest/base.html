@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr">
+<head>
+	{% load staticfiles %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="Nicolas Ermano Joseph">
+    
+	
+	<!-- core CSS -->
+    <link href="{% static 'obgest/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'obgest/css/font-awesome.min.css' %}" rel="stylesheet">
+    <link href="{% static 'obgest/css/main.css' %}" rel="stylesheet">
+    <title>{% block title %} {% endblock %} | Mjwenn</title>
+  
+    <link rel="shortcut icon" href="{% static 'obgest/images/icon.png' %}">
+</head><!--/head-->
+<body>
+
+    <header id="header">
+     
+
+        <nav class="navbar navbar-inverse" role="banner">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                   <!-- <a class="navbar-brand" href="index.html"><img src="images/logo.png" alt="logo"></a> -->
+                   <a href="" class="navbar-brand"><span style="font-size:120%">mjwenn</span></a>
+                </div>
+                
+                <div class="collapse navbar-collapse navbar-right">
+                    <ul class="nav navbar-nav">
+                        <li class="{% if idmenu == 1 %} {{ menu }} {% endif %}"><a href="{% url 'obgest:home' %}">Accueil</a></li>
+                        <li class="{% if idmenu == 2 %} {{ menu }} {% endif %}"><a href="{% url 'obgest:about' %}">Qui sommes-nous</a></li>
+                        <li class="{% if idmenu == 3 %} {{ menu }} {% endif %}"><a href="{% url 'obgest:annonce' %}">Annoncez une carte trouvée</a></li>
+                        <li class="{% if idmenu == 4 %} {{ menu }} {% endif %}"><a href="{% url 'obgest:search' %}">Rechercher</a></li>
+                        <li class="{% if idmenu == 5 %} {{ menu }} {% endif %}"><a href="{% url 'obgest:alert' %}">Placer une alerte</a></li>                      
+                    </ul>
+                </div>
+            </div><!--/.container-->
+        </nav><!--/nav-->
+
+        <div class="sous_titre">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12 col-xs-12 col-md-6">
+                        <span class="sous_titre_text"><h2><a href="{% url 'obgest:home' %}">Accueil </a>| {% block sous_menu %} {% endblock %} </h2></span>
+                    </div>
+                    {%if user.is_authenticated %}
+                    	<div class="col-sm-12 col-xs-12 col-md-6">
+                    		<span class="pull-right"> <a style="background:transparent;color:white;" class="btn btn-primary" href="{% url 'obgest:logout' %}"> Deconnexion </a> </span>
+                    		<span class="pull-right"><a style="background:#000000;margin-right:0px" href="{% url 'obgest:profil' %}" class="btn btn-primary btn-info">
+							    <span class="glyphicon glyphicon-user"></span> {{ user.username }}
+							</a></span>
+                    		
+                    	</div>
+                    {% else %}
+                    	<div class="col-sm-12 col-xs-12 col-md-6">
+                    		<span class="pull-right"> <a style="background:transparent; border:1px solid #FFFFFF" class="btn btn-primary" href="{% url 'obgest:login' %}"> Connexion </a> </span>	
+                    	</div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        
+    </header><!--/header-->
+
+    <section id="sec_corps">
+        <div class="container">
+            <div class="row">
+                <div id="corps" class="col-sm-7 col-xs-12">
+                    {% block main_body %}
+                    {% endblock %}
+                </div> <!--/corps-->
+
+                <div id="page_side" class="col-sm-4 col-xs-12">
+                    {% block page_side %}
+                    {% endblock %}
+                </div> <!--/page side-->
+            </div>
+        </div>
+    </section>
+
+
+
+    
+
+    <footer id="footer" class="midnight-blue">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6">
+                    &copy; 2015 <a  href="#" title="">CrazySoft</a>. Tous Droits Réservés.
+                </div>
+                <div class="col-sm-6">
+                    <ul class="pull-right">
+                        <li><a href="{% url 'obgest:home' %}">Home</a></li>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Faq</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer><!--/#footer-->
+
+
+    <script src="{% static 'obgest/js/jquery.js' %}"></script>
+    <script src="{% static 'obgest/js/bootstrap.min.js' %}"></script>
+    {% block script %} {% endblock %}
+</body>
+</html>
