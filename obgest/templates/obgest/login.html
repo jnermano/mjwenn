@@ -17,14 +17,24 @@
 <form action="{% url 'obgest:login' %}" method="post">
 {% csrf_token %}
 <table class="table table-bordered">
-<tr><th style="background:black;color:white;font-size:20px">Authentification</th></tr>
+<tr><th style="background:#c52d2f;color:white;font-size:20px">Authentification</th></tr>
 
 
-{% if form.password.errors or form.username.errors %}
+{% if error_auth == true %}
 <tr>
 <td>
 	<span style="width:100%; color:red">
         Verifiez username et/ou mot de passe
+    </span>
+</td>
+</tr>
+{% endif %}
+
+{% if active_error == true %}
+<tr>
+<td>
+	<span style="width:100%; color:red">
+        Votre compter n'est pas encore active. Consulter votre boite de reception. <a href="#">Reconfirmation</a>
     </span>
 </td>
 </tr>

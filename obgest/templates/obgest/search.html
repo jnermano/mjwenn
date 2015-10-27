@@ -16,7 +16,10 @@
 <table class="tabl" style="width:80%;">
 {{ form.as_table }}
 <tr> <td></td>
-<td> <input class="btn btn-primary" type="submit" value="Rechercher" /> </td>
+<td> <div>
+			<button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search"></span> Rechercher </button>
+		</div>
+</td>
 </tr>
 </table>
 </form>
@@ -26,4 +29,8 @@
 <!-- side content -->
 {% block page_side %}
 
+	<hr>
+	<h2> Supporter Mjwenn </h2>
+	<p> Nicolas Ermano JOSEPH a fait un don pour aider <b>Mjwenn</b> a augmente sa capacite de stockage et ameliorer son service. 
+	<a href="#">Faire un don aujourd'hui</a>! </p>
 {% endblock %}

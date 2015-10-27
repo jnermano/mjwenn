@@ -15,7 +15,7 @@
 
 <div class="container">
 <div class="row">
-<div class="col-md-8 col-xs-12">
+<div class="col-md-7 col-xs-12">
 <form onSubmit="return isFormOk()" class="form-horizonal" action="{% url 'obgest:annonce' %}" method="post" enctype="multipart/form-data">
 
 {% csrf_token %}
@@ -47,7 +47,7 @@
 <tr style="height:2px"></tr>
 
 <tr>
-	<th> <label class="control-label" for="{{ form.Prenom_proprietaire.id_for_label }}">Pr{{e}}nom du propri{{e}}taire *</label> </th>
+	<th> <label class="control-label" for="{{ form.Prenom_proprietaire.id_for_label }}">Pr{{e}}nom du propri{{e}}taire*</label> </th>
 	<td> {{ form.Prenom_proprietaire }} </td>
 	<td > <span style="color:red"> {{ form.Prenom_proprietaire.errors }} </span> </td>
 </tr>
@@ -166,7 +166,16 @@
 
 <!-- side content -->
 {% block page_side %}
-
+	
+	<hr>
+	<h2> Code d'honneur </h2>
+	<p> En utilisant <b>Mjwenn</b> vous certifiez sur <b>votre honneur</b> que les informations soumises sont exactes. </p>
+	Lire <a href="#">le code </a>
+	
+	<hr>
+	<h2> Supporter Mjwenn </h2>
+	<p> Nicolas Ermano JOSEPH a fait un don pour aider <b>Mjwenn</b> a augmente sa capacite de stockage et ameliorer son service. 
+	<a href="#">Faire un don aujourd'hui</a>! </p>
 {% endblock %}
 
 <!-- script block -->

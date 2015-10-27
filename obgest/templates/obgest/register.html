@@ -9,21 +9,30 @@
 
 <!-- main content -->
 {% block main_body %}
+<ul style="color:red">
+{% for err in errors %}
+	<li>{{err}}</li>
+{% endfor %}
+</ul>
 <div class="row">
-<div class="col-md-offset-3 col-md-8 col-xs-12">
+<div class="col-md-offset- col-md-8 col-xs-12">
 {% if error_message %} <p style="color:red"><strong>{{ error_message }}</strong></p>{% endif %}
 <form action="{% url 'obgest:register' %}" method="post">
 {% csrf_token %}
-<table class="table table-bordered" style="width:100%">
+<table class="table table-bordere" style="width:100%">
 <tr">
-<td style="color:white;background:black;font-size:20px;" colspan=2> Enregistrement </td> 
+<td style="color:white;background:#c52d2f;font-size:20px;" colspan=2> Enregistrement </td> 
 </tr>
 <tr style="height:20px"> </tr>
 {{ form.as_table }}
 <tr>
-<td colspan=2> <input class="btn btn-primary col-md-offset-5" type="submit" value="Soumettre" /> </td>
+<td colspan=2>
+ <input class="btn btn-primary" type="submit" value="Soumettre" />
+ <span class="pull-right"> <a style="background:transparent;color:black" class="btn btn-primary" href="{% url 'obgest:login' %}" >Vous avez deja un compte?<br> Connectez-vous! </span> 
+</td>
 </tr>
 </table>
+<hr>
 </form>
 </div>
 </div>
@@ -31,5 +40,17 @@
 
 <!-- side content -->
 {% block page_side %}
-
+	
+	<hr>
+	<h2> Code d'honneur </h2>
+	<p> En utilisant <b>Mjwenn</b> vous certifiez sur <b>votre honneur</b> que les informations soumises sont exactes. </p>
+	Lire <a href="#">le code </a>
+	
+	<hr>
+	<h2> Impliquez-vous! </h2>
+	
+	<hr>
+	<h2> Supporter Mjwenn </h2>
+	<p> Nicolas Ermano JOSEPH a fait un don pour aider <b>Mjwenn</b> a augmente sa capacite de stockage et ameliorer son service. 
+	<a href="#">Faire un don aujourd'hui</a>! </p>
 {% endblock %}

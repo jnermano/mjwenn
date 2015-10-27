@@ -1,5 +1,5 @@
 <!-- extends base page (master page) -->
-{% extends "obgest/base.html" %}
+{% extends "obgest/base2.html" %}
 
 <!-- Page title -->
 {% block title %} {{ title }} {% endblock %}
@@ -11,21 +11,150 @@
 {% block main_body %}
 
 <div class="row">
-	<div class="col-md-4 col-xs-12" style="border: 0px 1px 0px 0px solid black">
+	<div class="col-md-2 col-xs-0" style="border: 0px 1px 0px 0px solid black">
 		<table class="table table-hoverd">
-		<tr><td> <img src="{{ profil.avatar.url }}" class="img img-rounded img-thumbail" style="height:200px;width:80%"> </td></tr>
-		<tr style="height:100px"><td style="vertical-align:top"> <span> <a href="#"> Changer </a></span> </td></tr>
+		<tr><td> <img src="{{ profil.avatar.url }}" class="img img-responsive img-rounded img-thumbail" style=""> </td></tr>
+		<tr>
+			<td>
+				<ul class="nav nav-tabs nav-stacked">
+					<li class="active"><a data-toggle="tab" href="#annonces">Annonces</a></li>
+					<li><a data-toggle="tab" a href="#profil_user">Profil</a></li>
+				</ul>
+			</td>
+		</tr>
 		
-		<tr class="profidl" ><td> <a href="" class="bt" style="width:100%"> Profil </a> </td></tr>
-		<tr class="profidl" ><td> <a href="" class="bt" style="width:100%"> Mot de passe </a></td></tr>
 		</table>
 		
 	</div>
+	
+	<div class="col-md-9 col-xs-12">
+		<div class="tab-content">
+			<div class="tab-pane fade in active" id="annonces">
+			<!-- liste annonces  -->
+				<legend><span class="glyphicon glyphicon-list"></span>   Annonces & Alertes</legend>
+				<table class="table table-bordered table-hover table-condensed">
+					<thead>
+						<tr style="color:white;background:black">
+							<th>Type d'annonce</th>
+							<th>Type de Carte</th>
+							<th>Nom</th>
+							<th>Pr&eacutenom</th>
+							<th>Date</th>
+							<th>Action</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for ann in annonces %}
+							<tr>
+								<td>
+									{% if ann.type_annonce == 1 %}
+										Annonce
+									{% else %}
+										Alerte
+									{% endif %}
+								</td>
+								<td>{{ann.type.type}}</td>
+								<td>{{ann.owner_last_name}}</td>
+								<td>{{ann.owner_first_name}}</td>
+								<td>{{ann.pub_date}}</td>
+								<td>
+									<a title="Voir" href="#" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></a>
+								</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			<!-- fin liste annonces -->
+			<!-- debut liste adresses  -->
+				<hr>
+					<h2>Adresses</h2>
+					<div style="box-shadow:1px 1px 1px 1px gray;padding:05px 0px 05px 5px">
+						<table class="table table-bordered table-hover table-condensed">
+							<thead>
+								<tr style="color:white;background:black">
+									<th>Nom</th>
+									<th>Adresse</th>
+									<th>Tel</th>
+									<th>E-mail</th>
+									<th>D&eacutetails</th>
+									<th>Action</th>
+								</tr>
+							</thead>
+							<tbody>
+								{% for adr in adresses %}
+									<tr>
+										<td>{{ adr.contact_name }}</td>
+										<td>{{ adr.contact_place }}</td>
+										<td>{{ adr.contact_tel }}</td>
+										<td>{{ adr.contact_email }}</td>
+										<td>{{ adr.desc }}</td>
+										<td>
+											<a title="Modifier" href="#" class="btn btn-default"><span class="glyphicon glyphicon-edit"></span></a>
+										</td>
+									</tr>
+								{% endfor %}
+							</tbody>
+						</table>
+						<a title="Ajouter adresse" href="#" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span> Ajouter une adresse</a>
+					</div>
+				<!-- Fin liste adressses -->
+			</div>
+			
+			<div class="tab-pane fade" id="profil_user">
+					<h2>Profil</h2>
+					<div style="box-shadow:1px 1px 1px 1px gray;padding:20px 0px 30px 1%">
+						<div class="row">
+							<div class="col-md-6 col-xs-6">
+								<span class="col-md-5"><b>Pseudo</b></span>{{profil.user.username}} <br>
+								<span class="col-md-5"><b>E-mail</b></span>{{profil.user.email}} <br>
+								<span class="col-md-5"><b>Date de cr&eacuteation</b></span>{{profil.user.date_joined}}<br>
+							</div>
+							
+							<div class="col-md-6 col-xs-6">
+							</div>
+						</div>
+					</div>
+				<hr>
+					<h2>Avatar</h2>
+					<div style="box-shadow:1px 1px 1px 1px gray;padding:20px 0px 30px 10%">
+						<form class="form-horizontal">
+							<div class="form-group">
+								<input type="file" class="file" /> <br>
+								<button type="submit" class="btn btn-default">
+									<span class="glyphicon glyphicon-ok"></span> Changer avatar
+								</button>
+							</div>
+						</form>
+					</div>
+				<hr>
+					<h2> Mot de passe </h2>
+					<div style="box-shadow:1px 1px 1px 1px gray;padding:20px 0px 30px 10%">
+						<form class="form-horizontal">
+							{% csrf_token %}
+							{{ form.non_field_errors }}
+							<div class="form-group">
+								<label class="control-label col-sm-4" for="couleur">Nouveau mot de passe </label>
+								<div class="input-group col-sm-6">
+									{{chgPass.password}}
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="control-label col-sm-4" for="couleur">Confirmez mot de passe </label>
+								<div class="input-group col-sm-6">
+									{{chgPass.passagain}}
+								</div>
+							</div>
+							<button type="submit" class="btn btn-default col-md-offset-4">
+								<span class="glyphicon glyphicon-ok"></span> Changer mot de passe
+							</button>
+						</form>
+					</div>
+				
+				<hr>
+			</div>
+		</div>
+	</div>
+	
 </div>
-
-{% endblock %}
-
-<!-- side content -->
-{% block page_side %}
 
 {% endblock %}

@@ -16,3 +16,29 @@
 
 
 {% endblock %}
+
+{% block page_side %}
+<hr>
+<h2>Recherche Rapide</h2>
+	<form >
+		<div>
+			<input type="text" class="form-control" placeholder="Nom">
+		</div><br>
+		<div>
+			<input type="text" class="form-control" placeholder="Prenom">
+		</div>
+		<div>
+			<button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search"></span> Rechercher </button>
+		</div>
+	</form>
+	
+	<hr>
+	<h2> Supporter Mjwenn </h2>
+	<p> Nicolas Ermano JOSEPH a fait un don pour aider <b>Mjwenn</b> a augmente sa capacite de stockage et ameliorer son service. 
+	<a href="#">Faire un don aujourd'hui</a>! </p>
+	<br>
+	<hr>
+	<h2> Code d'honneur </h2>
+	<p> En utilisant <b>Mjwenn</b> vous certifiez sur <b>votre honneur</b> que les informations soumises sont exactes. </p>
+	Lire <a href="#">le code </a>
+{% endblock %}

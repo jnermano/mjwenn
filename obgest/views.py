@@ -1,17 +1,16 @@
 # -*- coding: utf8 -*-
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
-from .forms import AnnonceForm, LoginForm, RegisterForm
+from .forms import AnnonceForm, LoginForm, RegisterForm, ChangePassword, ProfilForm
 from django.http.response import HttpResponseRedirect
 from .models import Annonce, Category, Type, Profile, Address
 
 from obgest.forms import SearchForm, AlertForm
-from time import timezone
 from datetime import date
-from django.template.context_processors import request
 from django.contrib.auth.decorators import login_required
-from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
+from django.core.mail import send_mail
+import hashlib
 
 vues = ['/annonce/', '/profil/']
 def validate_file(value):
@@ -108,12 +107,15 @@ def search(request):
     context = {'idmenu': 4, 'title':'Recherchez!', 'menu':'active', 'sous_title':'Recherchez un objet sur mjwenn', 'form':form}
     return render(request, 'obgest/search.html', context)
 
+@login_required
 def alert(request):
     form = AlertForm();
     context = {'idmenu': 5, 'title':'Placer une alerte', 'menu':'active', 'sous_title':'Placez une alerte sur un objet', 'form':form}
     return render(request, 'obgest/alert.html', context)
 
 def Mylogin(request):
+    active_error = False
+    error = False
     if request.method == 'POST':
         form = LoginForm(request.POST)
         if form.is_valid():
@@ -121,14 +123,17 @@ def Mylogin(request):
             password = form.cleaned_data["password"]
             user = authenticate(username=username, password=password)  # Nous vérifions si les données sont correctes
             if user:  # Si l'objet renvoyé n'est pas None
-                login(request, user)  # nous connectons l'utilisateur
-                return redirect(request.POST.get('next','/profil/'))
+                if Profile.objects.get(user=user).is_active:
+                    login(request, user)  # nous connectons l'utilisateur
+                    return redirect(request.POST.get('next','/profil/'))
+                else:
+                    active_error = True
             else: # sinon une erreur sera affichée
                 error = True
     else:
         form = LoginForm();
         
-    context = {'idmenu': 0, 'title':'Login', 'menu':'active', 'sous_title':'Authentification', 'form':form}
+    context = {'idmenu': 0, 'title':'Login', 'menu':'active', 'sous_title':'Authentification', 'form':form, 'active_error':active_error, 'error_auth':error}
     return render(request, 'obgest/login.html', context)
 
 def Mylogout(request):
@@ -138,10 +143,17 @@ def Mylogout(request):
 @login_required
 def profil(request):
     profile = Profile.objects.filter(user=request.user)[0]
-    context = {'idmenu': 0, 'title':'Profile', 'menu':'active', 'sous_title':'Espace utilisateur', 'profil':profile}
+    annonces = Annonce.objects.filter(user=profile)
+    adresses = Address.objects.filter(user=profile)
+    
+    pform = ProfilForm()
+    chgpass = ChangePassword()
+    
+    context = {'idmenu': 0, 'title':'Profile', 'menu':'active', 'sous_title':'Espace utilisateur', 'profil':profile, 'annonces':annonces, 'adresses':adresses, 'proForm':pform, 'chgPass':chgpass}
     return render(request, 'obgest/profile.html', context)
 
 def register(request):
+    errors = []
     if request.method == 'POST':
         form = RegisterForm(request.POST)
         if form.is_valid():
@@ -149,13 +161,25 @@ def register(request):
             email = form.cleaned_data['email']
             passwd = form.cleaned_data['password']
             passwd2 = form.cleaned_data['password_again']
-            if passwd == passwd2:
-                u = User.objects.create_user(username, email, passwd)
+            
+            unam = User.objects.filter(username=username)
+            em = User.objects.filter(email=email)
+            if unam.count()>0:
+                errors.append("pseudo non-disponible")
+            if em.count()>0:
+                errors.append(u"email déjà inscrit sur mjwenn")
+                
+            if passwd == passwd2 and len(errors)==0:
+                u = User.objects.create_user(username=username, email=email, password=passwd)
                 p = Profile(user=u)
+                p.is_active = False
+                p.hach = hashlib.sha1(u.email).hexdigest()
                 p.save()
+                send_mail("Activation", "merci de vous enregistrer sur mjwenn.", "mjwenn@alwaysdata.net", [p.user.email])
+                #python -m smtpd -n -c DebuggingServer localhost:1025
                 return HttpResponseRedirect('/login/')
     else:
         form = RegisterForm();
-    context = {'idmenu': 0, 'title':'Nouveau compte', 'menu':'active', 'sous_title':u'Creer un compte mjwenn', 'form':form}
+    context = {'idmenu': 0, 'title':'Nouveau compte', 'menu':'active', 'sous_title':u'Creer un compte mjwenn', 'form':form, 'errors':errors}
     return render(request, 'obgest/register.html', context)
 

@@ -43,8 +43,8 @@ class AlertForm(forms.Form):
     contact_email = forms.CharField(required=False, label=u'Email', widget=forms.TextInput(attrs={'class':'form-control'}))
     
 class LoginForm(forms.Form):
-    username = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control'}))
-    password = forms.CharField(widget=forms.PasswordInput(attrs={'class':'form-control'}))
+    username = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'pseudo'}))
+    password = forms.CharField(widget=forms.PasswordInput(attrs={'class':'form-control', 'placeholder':'mot de passe'}))
     
 class RegisterForm(forms.Form):
     username = forms.CharField(label=u'Pseudo', widget=forms.TextInput(attrs={'class':'form-control'}))
@@ -52,5 +52,15 @@ class RegisterForm(forms.Form):
     password = forms.CharField(label=u'Mot de passe', widget=forms.PasswordInput(attrs={'class':'form-control'}))
     password_again = forms.CharField(label=u'Répéter mot de passe', widget=forms.PasswordInput(attrs={'class':'form-control'}))
 
+class QuickSearch(forms.Form):
+    nom = forms.CharField(label=u'Nom', widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Nom'}))
+    prenom = forms.CharField(label=u'Préom', widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':u'Préom'}))
     
+class ChangePassword(forms.Form):
+    password = forms.CharField(widget=forms.PasswordInput(attrs={'class':'form-control'}))
+    passagain = forms.CharField(widget=forms.PasswordInput(attrs={'class':'form-control'}))
     
+class ProfilForm(forms.Form):
+    firstname = forms.CharField(required=False, widget=forms.TextInput(attrs={'class':'form-control'}))
+    lastname = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control'}))
+    siteweb = forms.CharField(required=False, widget=forms.URLInput(attrs={'class':'form-control'}))

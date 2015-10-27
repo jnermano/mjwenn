@@ -22,6 +22,8 @@ class Profile(models.Model):
     user = models.OneToOneField(User)
     site_web = models.URLField()
     avatar = models.FileField(blank=True, null=True, upload_to=get_avatar_path, default='avatars/user1.png')
+    is_active = models.BooleanField(default=False)
+    hach = models.CharField(default="", null=True, blank=True, max_length=255)
 
     def __str__(self):
         return self.user.username
@@ -70,6 +72,7 @@ class Annonce(models.Model):
     picture = models.FileField(upload_to=get_file_path)
     pub_date = models.DateTimeField()
     returned = models.BooleanField(default=False)
+    active = models.BooleanField(default=False)
     
     
     

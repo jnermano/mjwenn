@@ -2554,3 +2554,8 @@ th, td {
 	vertical-align:bottom;
 	margin-right: 20px;
 }
+
+td .errorlist li{
+	color: #f00;
+	font-size:10px;
+}
