@@ -3,14 +3,51 @@
 {% block title %} {{ title }} {% endblock %}
 
 {% block sous_menu %} {{sous_title}} {% endblock %}
+{% load staticfiles %}
+
+{% block main_body %}
+	<div class="row">
+		<div class="col-md-2 col-xs-12">
+			<img id="owner_pic" class="img-responsive img-rounded" src="{% static 'obgest/images/me.jpg' %}" alt="" title="Ermano Nicolas Joseph">
+		</div>
+		<div class="col-md-10 col-xs-12">
+			<p>Je suis Ermano Nicolas Joseph, diplomé en génie électronique à la Faculté Des Sciences de l'Université d'Etat d'Haiti. Je me passionne pour les sciences, en particulier les sciences informatiques. Et je m'applique chaque jour à mettre cette passion au profit de ma communauté. </p>
+			<ul>
+				<li><a href="https://www.linkedin.com/in/ermano-nicolas-joseph-b45370a1" >LinkedIn</a></li>
+				<li><a href="https://facebook.com/jnermano" >Facebook</a></li>
+				<li><a href="https://twitter.com/jnermano14" >Twitter</a></li>
+			</ul>
+		</div>
+	</div>
+	<br/>
+	<hr/>
+	<br/>
+	<div class="row">
+		<div class="col-md-2 col-xs-12">
+			<img id="owner_pic" class="img-responsive img-rounded" src="{% static 'obgest/images/rach.jpg' %}" alt="" title="Ermano Nicolas Joseph">
+		</div>
+		<div class="col-md-10 col-xs-12">
+			Je suis Rachèle Suy. J'ai une Licence en Sciences Informatique de l'Ecole Supérieure d'Inforonique d'Haiti et Je suis maintenant en maitrise, option Base de Donnéees et Intégration Système à la Faculté Des Sciences.
+
+			<ul>
+				<li><a href="https://www.facebook.com/rachele.suy">Facebook</a></li>
+			</ul>
+		</div>
+	</div>
+{% endblock %}
 
 
 {% block page_side %}
 	<hr>
 	<h2> Supporter Mjwenn </h2>
-	<p> Nicolas Ermano JOSEPH a fait un don pour aider <b>Mjwenn</b> a augmente sa capacite de stockage et ameliorer son service. 
-	<a href="#">Faire un don aujourd'hui</a>! </p>
+	<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+<input type="hidden" name="cmd" value="_s-xclick">
+<input type="hidden" name="hosted_button_id" value="V5SNGH7ZQ7ACE">
+<input type="image" src="https://www.paypalobjects.com/fr_FR/FR/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal, le réflexe sécurité pour payer en ligne">
+<img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+</form>
+	<br/>
+	<p> Pour faire tourner les services basiques de <b>mjwenn</b> il faut de l'argent. Aidez-nous à continuer les faire tourner . </p>
 	<br>
-	<hr>
-	<h2> Impliquez-vous! </h2>
+	
 {% endblock %}

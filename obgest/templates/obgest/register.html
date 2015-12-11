@@ -15,7 +15,7 @@
 {% endfor %}
 </ul>
 <div class="row">
-<div class="col-md-offset- col-md-8 col-xs-12">
+<div class="col-md-offset- col-md-12 col-xs-12">
 {% if error_message %} <p style="color:red"><strong>{{ error_message }}</strong></p>{% endif %}
 <form action="{% url 'obgest:register' %}" method="post">
 {% csrf_token %}

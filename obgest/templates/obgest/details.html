@@ -1,5 +1,38 @@
+<!-- extends base page (master page) -->
 {% extends "obgest/base.html" %}
 
+<!-- Page title -->
 {% block title %} {{ title }} {% endblock %}
 
+<!-- sous-menu -->
 {% block sous_menu %} {{sous_title}} {% endblock %}
+
+<!-- main content -->
+{% block main_body %}
+{% if annonce.id > 0 %}
+	<div id="results_" style="box-shadow:1px 1px 1px 1px gray;padding:5px 5px 5px 5px;margin:0px 0px 10px 0px;">
+		<table class="table">
+			<tr>
+				<td style="vertical-align:top"> <span style="color:#C52D2F;font-size:200%" class="glyphicon glyphicon-info-sign"></span> </td>
+				<td>
+					{{annonce.type.type}}<br/>
+					{{annonce.owner_last_name}}, {{annonce.owner_first_name}}<br/>
+					{{annonce.pub_date}}
+				</td>
+			</tr>
+			<tr>
+				<td style="vertical-align:top"> <span style="color:#C52D2F;font-size:200%" class="glyphicon glyphicon-map-marker"></span> </td>
+				<td>
+					{{annonce.address.contact_name}}<br/>
+					{{annonce.address.contact_place}} <br/>
+					{{annonce.address.contact_tel}} <br/>
+					{{annonce.address.contact_email}} <br/>
+					{{annonce.address.contact_desc}}
+				</td>
+			</tr>
+		</table>
+	</div>
+		
+{% endif %}
+
+{% endblock %}

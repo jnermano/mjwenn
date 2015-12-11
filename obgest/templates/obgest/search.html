@@ -24,6 +24,43 @@
 </table>
 </form>
 
+{% if results|length > 0 %}
+	<br />
+	<h3> R&eacutesultat(s) de la recherche </h3>
+	{% for ann in results %}
+		<div id="results_" style="box-shadow:1px 1px 1px 1px gray;padding:5px 5px 5px 5px;margin:0px 0px 10px 0px;">
+			<table class="table">
+				<tr>
+					<td style="vertical-align:top"> <span style="color:#C52D2F;font-size:200%" class="glyphicon glyphicon-info-sign"></span> </td>
+					<th style="vertical-align:bottom">Infos sur la carte : </th>
+				</tr>
+				<tr>
+					<td></td>
+					<td>
+						<b>Type : </b>{{ann.type.type}}<br/>
+						<b>Nom & prénom : </b>{{ann.owner_last_name}}, {{ann.owner_first_name}}<br/>
+						<b>publiée le : </b>{{ann.pub_date}}
+					</td>
+				</tr>
+				<tr>
+					<td style="vertical-align:top"> <span style="color:#C52D2F;font-size:200%" class="glyphicon glyphicon-map-marker"></span> </td>
+					<th style="vertical-align:bottom">Infos pour la récupération : </th>
+				</tr>
+				<tr>
+					<td></td>
+					<td>
+						{{ann.address.contact_name}}<br/>
+						{{ann.address.contact_place}} <br/>
+						{{ann.address.contact_tel}} <br/>
+						{{ann.address.contact_email}} <br/>
+						{{ann.address.contact_desc}}
+					</td>
+				</tr>
+			</table>
+		</div>
+	{% endfor %}
+{% endif %}
+
 {% endblock %}
 
 <!-- side content -->
@@ -31,6 +68,13 @@
 
 	<hr>
 	<h2> Supporter Mjwenn </h2>
-	<p> Nicolas Ermano JOSEPH a fait un don pour aider <b>Mjwenn</b> a augmente sa capacite de stockage et ameliorer son service. 
-	<a href="#">Faire un don aujourd'hui</a>! </p>
+	<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+<input type="hidden" name="cmd" value="_s-xclick">
+<input type="hidden" name="hosted_button_id" value="V5SNGH7ZQ7ACE">
+<input type="image" src="https://www.paypalobjects.com/fr_FR/FR/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal, le réflexe sécurité pour payer en ligne">
+<img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+</form>
+	<br/>
+	<p> Pour faire tourner les services basiques de <b>mjwenn</b> il faut de l'argent. Aidez-nous à continuer les faire tourner . </p>
+	<br>
 {% endblock %}

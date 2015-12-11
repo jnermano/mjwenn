@@ -31,7 +31,7 @@
                         <span class="icon-bar"></span>
                     </button>
                    <!-- <a class="navbar-brand" href="index.html"><img src="images/logo.png" alt="logo"></a> -->
-                   <a href="" class="navbar-brand"><span style="font-size:120%">mjwenn</span></a>
+                   <a href="{% url 'obgest:home' %}" class="navbar-brand"><span style="font-size:120%">mjwenn</span></a>
                 </div>
                 
                 <div class="collapse navbar-collapse navbar-right">
@@ -95,9 +95,9 @@
                 <div class="col-sm-6">
                     <ul class="pull-right">
                         <li><a href="{% url 'obgest:home' %}">Home</a></li>
-                        <li><a href="#">About Us</a></li>
+                        <li><a href="{% url 'obgest:about' %}">About Us</a></li>
                         <li><a href="#">Faq</a></li>
-                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="mailto:mjwenn@alwaysdata.net">Contact Us</a></li>
                     </ul>
                 </div>
             </div>

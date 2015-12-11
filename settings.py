@@ -25,7 +25,7 @@ DEBUG = False
 
 TEMPLATE_DEBUG = True
 
-ALLOWED_HOSTS = ['http://mjwenn.com']
+ALLOWED_HOSTS = ['mjwenn.com']
 
 
 # Application definition
@@ -61,8 +61,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
         'NAME': 'mjwenn_test',                      # Or path to database file if using sqlite3.
-        'USER': 'mjwenn',                      # Not used with sqlite3.
-        'PASSWORD': 'chamillitary',#'chamillitary',                  # Not used with sqlite3.
+        'USER': 'mjwenn', #'root',                      # Not used with sqlite3.
+        'PASSWORD': 'chamillitary',                  # Not used with sqlite3.
         'HOST': 'mysql-mjwenn.alwaysdata.net',                      # Set to empty string for localhost. Not used with sqlite3.
         'PORT': '',   
     }
@@ -85,16 +85,9 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 STATIC_ROOT = BASE_DIR + '/public/static/'
-STATIC_URL = '/static/' if DEBUG else 'http://mjwenn/static/'
+STATIC_URL = '/static/' if DEBUG else 'http://mjwenn.com/static/'
 
 MEDIA_ROOT = BASE_DIR + '/photos/'
 MEDIA_URL = '/photos/'
 
 LOGIN_URL = '/login/'
-
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp-mjwenn.alwaysdata.net'
-EMAIL_HOST_USER = 'mjwenn'
-EMAIL_HOST_PASSWORD = 'chamillitary'
-EMAIL_PORT =1025
-EMAIL_USE_TLS = False

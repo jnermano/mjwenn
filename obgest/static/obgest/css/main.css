@@ -2534,6 +2534,7 @@ shortcodes page css
 .sous_titre {
   background: #888888;
   padding-bottom: 5px;
+  border-top: 1px solid #C52D2F;
 }
 
 .sous_titre_text h2 {
@@ -2545,6 +2546,7 @@ shortcodes page css
 ***************************/
 #page_side{
   background: #f5f5f5;
+  border-left: 1px solid #C52D2F;
 }
 
 /*******************************
@@ -2553,4 +2555,11 @@ shortcodes page css
 tr {
 	padding-bottom: 10px;
 	vertical-align:bottom;
+}
+
+/* ***************************
+******   about ***************
+*****************************/
+#owner_pic{
+  width: 400px;
 }

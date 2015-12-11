@@ -20,17 +20,17 @@
 <tr><th style="background:#c52d2f;color:white;font-size:20px">Authentification</th></tr>
 
 
-{% if error_auth == true %}
+{% if error_auth == True %}
 <tr>
 <td>
 	<span style="width:100%; color:red">
-        Verifiez username et/ou mot de passe
+        Verifiez pseudo et/ou mot de passe
     </span>
 </td>
 </tr>
 {% endif %}
 
-{% if active_error == true %}
+{% if active_error == True %}
 <tr>
 <td>
 	<span style="width:100%; color:red">
@@ -60,7 +60,7 @@
 <tr>
 	<td> 
 		<input class="btn btn-primary" type="submit" value="Connecter" />
-		<span class="pull-right"> <a style="background:transparent;color:black" class="btn btn-primary" href="{% url 'obgest:register' %}" >Creer un conpte </span>
+		<span class="pull-right"> <a style="background:transparent;color:black" class="btn btn-primary" href="{% url 'obgest:register' %}" >Creer un conpte <br/> <a style="background:transparent;color:black" class="btn btn-primary" href="{% url 'obgest:new_password' %}" > Mot de passe oubli&eacute?</a>  </span>
 	</td>
 </tr>
 
