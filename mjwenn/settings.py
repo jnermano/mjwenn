@@ -94,7 +94,6 @@ LOGIN_URL = '/login/'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp-mjwenn.alwaysdata.net'
-EMAIL_HOST_USER = 'mjwenn'
+EMAIL_HOST_USER = 'mjwenn@alwaysdata.net'
 EMAIL_HOST_PASSWORD = 'chamillitary'
-EMAIL_PORT =1025
-EMAIL_USE_TLS = False
+EMAIL_USE_TLS = True
